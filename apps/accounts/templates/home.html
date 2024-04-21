@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Главная страница{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if user.is_customer %}
+            <p>Админка заказчика {{ user.formatted_name }}</p>
+        {% elif user.is_performer %}
+            <p>Админка исполнителя {{ user.formatted_name }}</p>
+        {% else %}
+            <p>Все остальные {{ user.formatted_name }}</p>
+        {% endif %}
+        <p><a href="{% url 'logout' %}">Выйти</a></p>
+    {% else %}
+        <p>Гость</p>
+        <p><a href="{% url 'login' %}">Войти</a></p>
+        <p><a href="{% url 'register' %}">Регистрация</a></p>
+    {% endif %}
+{% endblock %}
